@@ -53,9 +53,15 @@ class SodexoAPI:
                     html = await res.text()
                     soup = BeautifulSoup(html, 'html.parser')
 
-                    lunch = float(soup.select_one(LUNCH_PASS_SELECTOR).text.replace(' €', ''))
-                    eco = float(soup.select_one(ECO_PASS_SELECTOR).text.replace(' €', ''))
-                    gift = float(soup.select_one(GIFT_PASS_SELECTOR).text.replace(' €', ''))
+                    lunch_tag = soup.select_one(LUNCH_PASS_SELECTOR)
+                    lunch = float(lunch_tag.text.replace(' €', '') if lunch_tag is not None else 0)
+
+                    eco_tag = soup.select_one(ECO_PASS_SELECTOR)
+                    eco = float(eco_tag.text.replace(' €', '') if eco_tag is not None else 0)
+
+                    gift_tag = soup.select_one(GIFT_PASS_SELECTOR)
+                    gift = float(gift_tag.text.replace(' €', '') if gift_tag is not None else 0)
+
                     return AccountDetails(lunch, eco, gift, datetime.datetime.now().strftime("%d/%m/%Y %H:%M"));
                 raise Exception("Could not retrieve account information from API")
         except aiohttp.ClientError as err:
