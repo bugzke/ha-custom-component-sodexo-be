@@ -56,7 +56,7 @@ class SodexoAPI:
                     lunch = float(soup.select_one(LUNCH_PASS_SELECTOR).text.replace(' €', ''))
                     eco = float(soup.select_one(ECO_PASS_SELECTOR).text.replace(' €', ''))
                     gift = float(soup.select_one(GIFT_PASS_SELECTOR).text.replace(' €', ''))
-                    return AccountDetails(lunch, eco, gift, datetime.date.today().strftime("%d/%m/%Y %H:%M"));
+                    return AccountDetails(lunch, eco, gift, datetime.datetime.now().strftime("%d/%m/%Y %H:%M"));
                 raise Exception("Could not retrieve account information from API")
         except aiohttp.ClientError as err:
             _LOGGER.exception(err)
