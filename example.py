@@ -11,10 +11,10 @@ async def main():
         password = input("Enter your password.......: ")
 
         token = await api.login(username, password)
-        details = await api.getAccountDetails(token)
-        print(details.lunchPass)
-        print(details.giftPass)
-        print(details.ecoPass)
+        details = await api.getAccountDetails()
+        print(details.lunch_pass_amount)
+        print(details.gift_pass_amount)
+        print(details.eco_pass_amount)
         print(details.updated)
         
 asyncio.get_event_loop().run_until_complete(main())
