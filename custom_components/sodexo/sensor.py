@@ -29,15 +29,20 @@ _LOGGER.setLevel(logging.DEBUG)
 # Time between updating data from API
 SCAN_INTERVAL = timedelta(minutes=60)
 
-async def async_setup_entry(hass: HomeAssistant, 
-                            config_entry: ConfigEntry, 
+
+async def async_setup_entry(hass: HomeAssistant,
+                            config_entry: ConfigEntry,
                             async_add_entities: Callable):
     """Setup sensor platform."""
     session = async_get_clientsession(hass, True)
     api = SodexoAPI(session)
 
     config = config_entry.data
-    sensors = [ SodexoSensor(api, config) ]
+    sensors = [
+        SodexoLunchPassSensor(api, config),
+        SodexoEcoPassSensor(api, config),
+        SodexoGiftPassSensor(api, config)
+    ]
     async_add_entities(sensors, update_before_add=True)
 
 
@@ -56,16 +61,6 @@ class SodexoSensor(SensorEntity):
         self._state_class = SensorStateClass.TOTAL
         self._state = None
         self._available = False
-        
-    @property
-    def name(self) -> str:
-        """Return the name of the entity."""
-        return "Sodexo Card"
-
-    @property
-    def unique_id(self) -> str:
-        """Return the unique ID of the sensor."""
-        return f"{DOMAIN}-{self._config[CONF_USERNAME]}-{COUNTRY_PT}".lower()
 
     @property
     def available(self) -> bool:
@@ -104,21 +99,92 @@ class SodexoSensor(SensorEntity):
             "updated": self._updated
         }
 
+
+class SodexoLunchPassSensor(SodexoSensor):
+    @property
+    def name(self) -> str:
+        """Return the name of the entity."""
+        return "Sodexo Lunch amount"
+
+    @property
+    def unique_id(self) -> str:
+        """Return the unique ID of the sensor."""
+        return f"{DOMAIN}-{self._config[CONF_USERNAME]}-LUNCH".lower()
+
     async def async_update(self) -> None:
-        """Fetch new state data for the sensor."""
         api = self._api
         config = self._config
 
-        try:        
+        try:
             token = await api.login(
-                config[CONF_USERNAME], 
+                config[CONF_USERNAME],
                 config[CONF_PASSWORD])
             if (token):
-                account = await api.getAccountDetails(token)
-                self._state = account.amount
+                account = await api.getAccountDetails()
+                self._state = account.lunch_pass_amount
                 self._updated = account.updated
                 self._available = True
 
         except aiohttp.ClientError as err:
             self._available = False
-            _LOGGER.exception("Error updating data from DGEG API.", err)            
+            _LOGGER.exception("Error updating data from DGEG API.", err)
+
+
+class SodexoGiftPassSensor(SodexoSensor):
+    @property
+    def name(self) -> str:
+        """Return the name of the entity."""
+        return "Sodexo Gift amount"
+
+    @property
+    def unique_id(self) -> str:
+        """Return the unique ID of the sensor."""
+        return f"{DOMAIN}-{self._config[CONF_USERNAME]}-GIFT".lower()
+
+    async def async_update(self) -> None:
+        api = self._api
+        config = self._config
+
+        try:
+            token = await api.login(
+                config[CONF_USERNAME],
+                config[CONF_PASSWORD])
+            if (token):
+                account = await api.getAccountDetails()
+                self._state = account.gift_pass_amount
+                self._updated = account.updated
+                self._available = True
+
+        except aiohttp.ClientError as err:
+            self._available = False
+            _LOGGER.exception("Error updating data from DGEG API.", err)
+
+
+class SodexoEcoPassSensor(SodexoSensor):
+    @property
+    def name(self) -> str:
+        """Return the name of the entity."""
+        return "Sodexo EcoPass amount"
+
+    @property
+    def unique_id(self) -> str:
+        """Return the unique ID of the sensor."""
+        return f"{DOMAIN}-{self._config[CONF_USERNAME]}-ECOPASS".lower()
+
+    async def async_update(self) -> None:
+        api = self._api
+        config = self._config
+
+        try:
+            token = await api.login(
+                config[CONF_USERNAME],
+                config[CONF_PASSWORD])
+            if (token):
+                account = await api.getAccountDetails()
+                self._state = account.eco_pass_amount
+                self._updated = account.updated
+                self._available = True
+
+        except aiohttp.ClientError as err:
+            self._available = False
+            _LOGGER.exception("Error updating data from DGEG API.", err)

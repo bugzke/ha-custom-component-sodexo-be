@@ -2,6 +2,7 @@
 import enum
 from html.parser import HTMLParser
 
+
 def parse_html(html: str) -> str:
     result = html
     index = result.find('<div class="valor_saldo">')
@@ -38,15 +39,22 @@ class HtmlParser(HTMLParser):
 class AccountDetails:
     """Represents an Account Details."""
 
-    def __init__(self, amount: float, updated: str):
-        self._amount = amount
+    def __init__(self, lunch_pass: float, eco_pass: float, gift_pass: float, updated: str):
+        self._lunch_pass = lunch_pass
+        self._eco_pass = eco_pass
+        self._gift_pass = gift_pass
         self._updated = updated
-        
+
     @property
     def updated(self) -> str:
         return self._updated
 
     @property
-    def amount(self) -> float:
-        return self._amount
-        
+    def lunch_pass_amount(self) -> float:
+        return self._lunch_pass
+    @property
+    def eco_pass_amount(self) -> float:
+        return self._eco_pass
+    @property
+    def gift_pass_amount(self) -> float:
+        return self._gift_pass

@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
         "./custom_components"
-    ]
+    ],
+    "python.linting.enabled": false
 }

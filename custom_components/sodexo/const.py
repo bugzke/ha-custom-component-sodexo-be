@@ -7,14 +7,14 @@ DOMAIN_DATA = f"{DOMAIN}_data"
 DEFAULT_ICON = "mdi:credit-card"
 UNIT_OF_MEASUREMENT = "€"
 
-ATTRIBUTION = "Data provided by https://www.sodexobeneficios.pt/"
+ATTRIBUTION = "Data provided by https://sodexo4you.be/fr"
+LOGIN_URL = "https://sodexo4you.be/fr"
 
-LOGIN_URL = "https://login.sodexobeneficios.pt/login_processing.php"
-MINHACONTA_URL = "https://minhaconta.sodexobeneficios.pt/"
+LUNCH_PASS_SELECTOR = "body > header > div.header-fixed > div.balance-block > div > ul > li.lunch-pass > a > span.balance_price"
+ECO_PASS_SELECTOR = "body > header > div.header-fixed > div.balance-block > div > ul > li.eco-pass > a > span.balance_price"
+GIFT_PASS_SELECTOR = "body > header > div.header-fixed > div.balance-block > div > ul > li.cadeau-pass > a > span.balance_price"
 
-LOGIN_URL_BR = "https://www.sodexobeneficios.com.br/sodexo-club/login/"
-
-COUNTRY_PT = "Portugal"
+COUNTRY_PT = "Belgium"
 
 CONF_COUNTRY = "country"
 CONF_USERNAME = "username"
