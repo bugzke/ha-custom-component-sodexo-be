@@ -5,10 +5,10 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/netsoft-ruidias/ha-custom-component-sodexo?style=for-the-badge)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/netsoft-ruidias/ha-custom-component-sodexo?style=for-the-badge)
 
-# Sodexo Card Integration
+# Belgian Sodexo Card Integration
 Sodexo - Custom Component for Home Assistant
 
-The data source for this integration is the [Sodexo](https://www.sodexobeneficios.pt/).
+The data source for this integration is the [Sodexo](https://sodexo4you.be/).
 
 The author of this project categorically rejects any and all responsibility for the card balance and other data that were presented by the integration.
 
@@ -55,12 +55,7 @@ entities:
 ```
 
 # Legal notice
-This is a personal project and isn't in any way affiliated with, sponsored or endorsed by [Sodexo Portugal](https://www.sodexobeneficios.pt/).
+This is a personal project and isn't in any way affiliated with, sponsored or endorsed by [Sodexo Belgium](https://sodexo4you.be/).
 
 All product names, trademarks and registered trademarks in (the images in) this repository, are property of their respective owners. All images in this repository are used by the project for identification purposes only.
 
----
-Please, support my other integrations: 
-[Preços dos Combustivels](https://github.com/netsoft-ruidias/ha-custom-component-precoscombustiveis) | 
-[MyEdenred](https://github.com/netsoft-ruidias/ha-custom-component-myedenred) |
-[Sodexo](https://github.com/netsoft-ruidias/ha-custom-component-sodexo)

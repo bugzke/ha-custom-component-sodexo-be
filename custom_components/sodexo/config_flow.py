@@ -12,9 +12,7 @@ import homeassistant.helpers.config_validation as cv
 
 from .api import SodexoAPI
 from .const import (
-    DOMAIN, 
-    CONF_COUNTRIES, COUNTRY_PT, 
-    CONF_COUNTRY, CONF_USERNAME, CONF_PASSWORD
+    DOMAIN, CONF_USERNAME, CONF_PASSWORD
 )
 
 _LOGGER = logging.getLogger(__name__)
